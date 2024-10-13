@@ -9,6 +9,7 @@ import lxml
 
 from odoo import fields, models
 from odoo.tools.func import lazy
+from odoo.tools.misc import Sentinel, SENTINEL
 
 
 class JobSerialized(fields.Field):
@@ -37,13 +38,13 @@ class JobSerialized(fields.Field):
         ),
     }
 
-    def __init__(self, string=fields.Default, base_type=fields.Default, **kwargs):
-        super().__init__(string=string, _base_type=base_type, **kwargs)
+    def __init__(self, string: str | Sentinel = SENTINEL, **kwargs):
+        super().__init__(string=string, _base_type=dict, **kwargs)
 
-    def _setup_attrs(self, model, name):  # pylint: disable=missing-return
-        super()._setup_attrs(model, name)
+    def _setup_attrs(self, model_class, name):  # pylint: disable=missing-return
+        super()._setup_attrs(model_class, name)
         if self._base_type not in self._default_json_mapping:
-            raise ValueError("%s is not a supported base type" % (self._base_type))
+            raise ValueError("%s is not a supported base type" % (self._base_type,))
 
     def _base_type_default_json(self, env):
         default_json = self._default_json_mapping.get(self._base_type)

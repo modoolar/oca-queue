@@ -16,7 +16,7 @@
         </field>
     </record>
     <record id="ir_cron_view_tree" model="ir.ui.view">
-        <field name="name">ir.cron.view.tree (queue_job_cron)</field>
+        <field name="name">ir.cron.view.list (queue_job_cron)</field>
         <field name="model">ir.cron</field>
         <field name="inherit_id" ref="base.ir_cron_view_tree" />
         <field name="arch" type="xml">

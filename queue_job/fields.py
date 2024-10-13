@@ -39,7 +39,8 @@ class JobSerialized(fields.Field):
     }
 
     def __init__(self, string: str | Sentinel = SENTINEL, **kwargs):
-        super().__init__(string=string, _base_type=dict, **kwargs)
+        kwargs["_base_type"] = kwargs.pop("base_type", dict)
+        super().__init__(string=string, **kwargs)
 
     def _setup_attrs(self, model_class, name):  # pylint: disable=missing-return
         super()._setup_attrs(model_class, name)
